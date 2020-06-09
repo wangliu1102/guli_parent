@@ -5,7 +5,6 @@ import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.entity.vo.TeacherQuery;
 import com.atguigu.eduservice.service.EduTeacherService;
-import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -87,23 +86,23 @@ public class EduTeacherController {
     }
 
     /**
-     * 条件分页查询讲师列表
+     * 条件查询带分页的方法
      *
-     * @param page
+     * @param current
      * @param limit
      * @return
      */
     @ApiOperation(value = "条件分页讲师列表")
-    @PostMapping("/query/{page}/{limit}")
-    public R pageQuery(
-            @ApiParam(name = "page", value = "当前页码", required = true)
-            @PathVariable Long page,
+    @PostMapping("/pageTeacherCondition/{current}/{limit}")
+    public R pageTeacherCondition(
+            @ApiParam(name = "current", value = "当前页码", required = true)
+            @PathVariable Long current,
 
             @ApiParam(name = "limit", value = "每页记录数", required = true)
             @PathVariable Long limit,
             @RequestBody(required = false) TeacherQuery teacherQuery) {
 
-        Page<EduTeacher> pageParam = new Page<>(page, limit);
+        Page<EduTeacher> pageParam = new Page<>(current, limit);
 
         teacherService.pageQuery(pageParam, teacherQuery);
         List<EduTeacher> records = pageParam.getRecords();
@@ -119,13 +118,16 @@ public class EduTeacherController {
      * @return
      */
     @ApiOperation(value = "新增讲师")
-    @PostMapping
+    @PostMapping("addTeacher")
     public R save(
             @ApiParam(name = "teacher", value = "讲师对象", required = true)
             @RequestBody EduTeacher teacher) {
-
-        teacherService.save(teacher);
-        return R.ok();
+        boolean save = teacherService.save(teacher);
+        if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
     }
 
     /**
@@ -135,40 +137,32 @@ public class EduTeacherController {
      * @return
      */
     @ApiOperation(value = "根据ID查询讲师")
-    @GetMapping("{id}")
+    @GetMapping("getTeacher/{id}")
     public R getById(
             @ApiParam(name = "id", value = "讲师ID", required = true)
             @PathVariable String id) {
 
-        try {
-            int a = 10/0;
-        }catch(Exception e) {
-            throw new GuliException(20001,"出现自定义异常");
-        }
-
         EduTeacher teacher = teacherService.getById(id);
-        return R.ok().data("item", teacher);
+        return R.ok().data("teacher", teacher);
     }
 
     /**
      * 根据id修改讲师
      *
-     * @param id
      * @param teacher
      * @return
      */
     @ApiOperation(value = "根据ID修改讲师")
-    @PutMapping("{id}")
+    @PutMapping("updateTeacher")
     public R updateById(
-            @ApiParam(name = "id", value = "讲师ID", required = true)
-            @PathVariable String id,
-
             @ApiParam(name = "teacher", value = "讲师对象", required = true)
             @RequestBody EduTeacher teacher) {
-
-        teacher.setId(id);
-        teacherService.updateById(teacher);
-        return R.ok();
+        boolean flag = teacherService.updateById(teacher);
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
     }
 
 }
