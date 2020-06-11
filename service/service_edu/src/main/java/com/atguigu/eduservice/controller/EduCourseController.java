@@ -5,9 +5,15 @@ import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
+import com.atguigu.eduservice.entity.vo.CourseQuery;
 import com.atguigu.eduservice.service.EduCourseService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -64,5 +70,36 @@ public class EduCourseController {
         courseService.updateById(eduCourse);
         return R.ok();
     }
+
+    @ApiOperation(value = "分页课程列表")
+    @PostMapping("{page}/{limit}")
+    public R pageQuery(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable Long page,
+
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable Long limit,
+
+            @ApiParam(name = "courseQuery", value = "查询对象", required = false)
+            @RequestBody(required = false) CourseQuery courseQuery) {
+
+        Page<EduCourse> pageParam = new Page<>(page, limit);
+
+        courseService.pageQuery(pageParam, courseQuery);
+        List<EduCourse> records = pageParam.getRecords();
+
+        long total = pageParam.getTotal();
+
+        return R.ok().data("total", total).data("rows", records);
+    }
+
+    //删除课程
+    @DeleteMapping("{courseId}")
+    public R deleteCourse(@PathVariable String courseId) {
+        courseService.removeByCourseId(courseId);
+        return R.ok();
+    }
+
+
 }
 
