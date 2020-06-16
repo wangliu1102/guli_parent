@@ -16,8 +16,8 @@ public class TestVod {
 
     // 本地视频上传
     public static void main(String[] args) {
-        String accessKeyId = "LTAI4GGgUPPcNDt5J9MpVufY";
-        String accessKeySecret = "9ARs2LAHYvgszIYLYK7T4sEbepTKgh";
+        String accessKeyId = "保密";
+        String accessKeySecret = "保密";
 
         String title = "6 - What If I Want to Move Faster - upload by sdk";   //上传之后文件名称
         String fileName = "C:\\Users\\wangl\\Videos\\6 - What If I Want to Move Faster.mp4";  //本地文件路径和名称
@@ -45,7 +45,7 @@ public class TestVod {
     @Test
     public void getPlayAuth() throws Exception{
 
-        DefaultAcsClient client = InitObject.initVodClient("LTAI4GGgUPPcNDt5J9MpVufY", "9ARs2LAHYvgszIYLYK7T4sEbepTKgh");
+        DefaultAcsClient client = InitObject.initVodClient("保密", "保密");
 
         GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
         GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
@@ -59,7 +59,7 @@ public class TestVod {
     @Test
     public void getPlayUrl() throws Exception{
         //创建初始化对象
-        DefaultAcsClient client = InitObject.initVodClient("LTAI4GGgUPPcNDt5J9MpVufY", "9ARs2LAHYvgszIYLYK7T4sEbepTKgh");
+        DefaultAcsClient client = InitObject.initVodClient("保密", "保密");
 
         //创建获取视频地址request和response
         GetPlayInfoRequest request = new GetPlayInfoRequest();
