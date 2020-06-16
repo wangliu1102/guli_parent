@@ -13,4 +13,6 @@ public class VideoVo {
     private String videoSourceId;//视频id
 
     private String title;
+
+    private Integer isFree; // 是否可以试听：0收费 1免费
 }
