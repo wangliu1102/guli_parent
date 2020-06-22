@@ -4,6 +4,7 @@ package com.atguigu.educenter.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.commonutils.ordervo.UcenterMemberOrder;
 import com.atguigu.commonutils.vo.UcenterMemberVO;
 import com.atguigu.educenter.entity.UcenterMember;
 import com.atguigu.educenter.entity.vo.RegisterVo;
@@ -66,6 +67,16 @@ public class UcenterMemberController {
         BeanUtils.copyProperties(ucenterMember, member);
         return R.ok().data("member", JSONObject.toJSONString(member));
 
+    }
+
+    //根据用户id获取用户信息
+    @PostMapping("getUserInfoOrder/{id}")
+    public UcenterMemberOrder getUserInfoOrder(@PathVariable String id) {
+        UcenterMember member = memberService.getById(id);
+        //把member对象里面值复制给UcenterMemberOrder对象
+        UcenterMemberOrder ucenterMemberOrder = new UcenterMemberOrder();
+        BeanUtils.copyProperties(member,ucenterMemberOrder);
+        return ucenterMemberOrder;
     }
 }
 
