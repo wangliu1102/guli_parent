@@ -1,11 +1,14 @@
 package com.atguigu.educenter.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.commonutils.vo.UcenterMemberVO;
 import com.atguigu.educenter.entity.UcenterMember;
 import com.atguigu.educenter.entity.vo.RegisterVo;
 import com.atguigu.educenter.service.UcenterMemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +55,17 @@ public class UcenterMemberController {
         //查询数据库根据用户id获取用户信息
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);
+    }
+
+    //根据会员id获取用户信息
+    @GetMapping("getInfoUc/{id}")
+    public R getMemberInfoById(@PathVariable String id, UcenterMemberVO m) {
+        UcenterMember ucenterMember = memberService.getById(id);
+        //根据用户id获取用户信息
+        UcenterMemberVO member = new UcenterMemberVO();
+        BeanUtils.copyProperties(ucenterMember, member);
+        return R.ok().data("member", JSONObject.toJSONString(member));
+
     }
 }
 
