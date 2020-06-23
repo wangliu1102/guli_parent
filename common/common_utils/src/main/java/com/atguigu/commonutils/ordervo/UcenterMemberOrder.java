@@ -18,7 +18,7 @@ import java.util.Date;
  * 会员表
  * </p>
  *
- * @author testjava
+ * @author 王柳
  * @since 2020-03-09
  */
 @Data

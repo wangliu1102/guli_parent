@@ -17,7 +17,7 @@ import java.util.List;
  * 后台banner管理接口
  * </p>
  *
- * @author testjava
+ * @author 王柳
  * @since 2020-03-07
  */
 @RestController

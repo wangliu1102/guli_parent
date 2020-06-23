@@ -17,7 +17,7 @@ import java.util.List;
  * 前台bannber显示
  * </p>
  *
- * @author testjava
+ * @author 王柳
  * @since 2020-03-07
  */
 @RestController
