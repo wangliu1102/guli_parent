@@ -100,5 +100,12 @@ public class UserController {
         roleService.saveUserRoleRealtionShip(userId,roleId);
         return R.ok();
     }
+
+    @ApiOperation(value = "根据用户id获取用户")
+    @GetMapping("/get/{userId}")
+    public R getUserById(@PathVariable String userId) {
+        User user = userService.getById(userId);
+        return R.ok().data("itme",user);
+    }
 }
 

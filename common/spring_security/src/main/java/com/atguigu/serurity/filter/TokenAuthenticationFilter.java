@@ -26,7 +26,7 @@ import java.util.List;
  * 访问过滤器
  * </p>
  *
- * @author 王柳
+ * @author qy
  * @since 2019-11-08
  */
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
@@ -42,8 +42,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        logger.info("=================" + req.getRequestURI());
-        if (req.getRequestURI().indexOf("admin") == -1) {
+        logger.info("================="+req.getRequestURI());
+        if(req.getRequestURI().indexOf("admin") == -1) {
             chain.doFilter(req, res);
             return;
         }
@@ -71,8 +71,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
             List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(userName);
             Collection<GrantedAuthority> authorities = new ArrayList<>();
-            for (String permissionValue : permissionValueList) {
-                if (StringUtils.isEmpty(permissionValue)) {
+            for(String permissionValue : permissionValueList) {
+                if(StringUtils.isEmpty(permissionValue)) {
                     continue;
                 }
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permissionValue);

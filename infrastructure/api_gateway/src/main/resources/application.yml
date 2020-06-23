@@ -13,7 +13,7 @@ spring:
         - id: service-acl
           uri: lb://service-acl
           predicates:
-            - Path=/*/acl/** # 路径匹配
+            - Path=/admin/acl/** # 路径匹配
         - id: service-edu
           uri: lb://service-edu
           predicates:
@@ -21,7 +21,31 @@ spring:
         - id: service-ucenter
           uri: lb://service-ucenter
           predicates:
-            - Path=/ucenter/** # 路径匹配
+            - Path=/educenter/** # 路径匹配
+        - id: service-cms
+          uri: lb://service-cms
+          predicates:
+            - Path=/educms/** # 路径匹配
+        - id: service-msm
+          uri: lb://service-msm
+          predicates:
+             - Path=/edumsm/** # 路径匹配
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/eduorder/** # 路径匹配
+        - id: service-oss
+          uri: lb://service-oss
+          predicates:
+            - Path=/eduoss/** # 路径匹配
+        - id: service-statistics
+          uri: lb://service-statistics
+          predicates:
+            - Path=/staservice/** # 路径匹配
+        - id: service-vod
+          uri: lb://service-vod
+          predicates:
+            - Path=/eduvod/** # 路径匹配
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

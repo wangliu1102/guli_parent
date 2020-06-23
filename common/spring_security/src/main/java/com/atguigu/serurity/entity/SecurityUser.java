@@ -16,7 +16,7 @@ import java.util.List;
  * 安全认证用户详情信息
  * </p>
  *
- * @author 王柳
+ * @author qy
  * @since 2019-11-08
  */
 @Data
@@ -41,10 +41,8 @@ public class SecurityUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for (String permissionValue : permissionValueList) {
-            if (StringUtils.isEmpty(permissionValue)) {
-                continue;
-            }
+        for(String permissionValue : permissionValueList) {
+            if(StringUtils.isEmpty(permissionValue)) continue;
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permissionValue);
             authorities.add(authority);
         }
